@@ -1,0 +1,36 @@
+div#bodcont{
+padding: 0;
+
+box-shadow:none;
+-webkit-box-shadow:none;
+-moz-box-shadow: none; 
+}
+
+div#container{
+width:auto;
+min-width:1%;
+}
+
+div#mainartcont{padding:0;}
+body {
+    background: #fff;
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #000;
+    -webkit-text-size-adjust: none;
+}
+
+
+div#logo{
+width:auto;
+}
+
+.search-box input.keywordField{width:100px;}
+.search-box{font-size:14px;padding-right:0px;float:right;padding:5px;}
+.image-full-content{width:auto;}
+
+.navigator{height:auto;min-height:15px;}
+
+.order-nav{margin-top:-7px;}
+.left-thumb{margin-right:10px;}

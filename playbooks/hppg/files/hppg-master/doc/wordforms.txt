@@ -1,0 +1,9 @@
+mens > male
+men > male
+man > male
+males > male
+women > female
+woman > female
+females > female
+womens > female
+smile > smiling
