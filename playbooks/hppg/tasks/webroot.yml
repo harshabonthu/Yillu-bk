@@ -1,0 +1,45 @@
+---
+
+- name: Create Webroot directory
+  action: file path=/var/www state=directory recurse=yes mode=0711
+
+- name: Upload HPPG sources
+  action: unarchive src=hppg-master.zip dest=/var/www/
+
+- name: Rename webroot directory
+  action: command mv /var/www/hppg-master /var/www/{{ ansible_hostname }}
+
+- name: Create directories
+  action: file path=/var/www/{{ ansible_hostname }}/{{ item }} state=directory recurse=yes owner=www-data group=www-data mode=0700
+  with_items:
+  - cache
+  - cache/translations
+  - cache/userinfo
+  - cache/compiledclasses
+  - cache/cacheblock
+  - cache/cacheconfig
+  - cache/compiledclasses
+  - cache/compiledtemplates
+  - cache/translations
+  - cache/userinfo
+
+
+  - albums
+  - albums/userpics
+  - var
+  - var/archives
+  - var/tmpfiles
+  - var/watermark
+  - var/forum
+
+- name: Create nginx virtual host configuration
+  action: template src=nginx.conf.j2 dest=/etc/nginx/sites-available/{{ ansible_hostname }}.conf
+- name: Symlinking to sites-enabled
+  action: file state=link src=/etc/nginx/sites-available/{{ ansible_hostname }}.conf path=/etc/nginx/sites-enabled/{{ ansible_hostname }}.conf
+  notify:
+  - restart php5-fpm
+  - restart nginx
+
+
+- name: Create hppg settings file
+  action: template src=settings.ini.php.j2 dest=/var/www/{{ ansible_hostname }}/settings/settings.ini.php owner=www-data group=www-data mode=0644

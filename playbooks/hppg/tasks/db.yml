@@ -1,0 +1,17 @@
+---
+- name: Create database
+  action: mysql_db db={{ hppg.database }} state=present
+
+- name: Create database user
+  action: mysql_user user={{ hppg.user }} password={{ hppg.password }} priv={{ hppg.database }}.*:ALL state=present
+
+- name: Copy SQL dump
+  action: copy src=hppg.sql dest=/tmp/hppg.sql
+
+- name: Import database
+  action: mysql_db db={{ hppg.database }} state=import target=/tmp/hppg.sql
+
+- name: Delete SQL dump
+  action: file path=/tmp/hppg.sql state=absent
+
+

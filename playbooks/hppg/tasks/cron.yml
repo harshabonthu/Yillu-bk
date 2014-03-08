@@ -1,0 +1,8 @@
+---
+- name: Set up CRON tasks
+  action: cron name="{{ item.name }}" minute="{{ item.minute }}" job="{{ item.job }}"
+  with_items:
+  - { name: "Index colors", minute: "*/5", job: "cd /var/www/{{ ansible_hostname }} && php cron.php -s site_admin -c gallery/cron" }
+  - { name: "Reindex Sphinx", minute: "*/2", job: "indexer --quiet --all --rotate" }
+
+

@@ -1,0 +1,6 @@
+---
+- name: install sphinxsearch
+  action: apt name=sphinxsearch state=installed
+
+- name: Start sphinxsearch on reboot
+  action: lineinfile dest=/etc/default/sphinxsearch regexp='^START\s*=\s*no' line='START=yes'

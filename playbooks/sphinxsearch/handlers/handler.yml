@@ -1,0 +1,4 @@
+---
+     - name: restart sphinxsearch
+       action: service name=sphinxsearch state=restarted
+

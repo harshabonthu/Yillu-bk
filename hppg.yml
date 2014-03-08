@@ -1,0 +1,58 @@
+---
+# easy installation of HPPG software http://hppgallery.com
+- hosts: all
+  user: root
+
+  vars:
+    nginx:
+      connections : "1024"
+
+    mysql:
+       utf8: true
+       root_password: "7JHb23yty1r437862g"
+
+    mysqld:
+       bind_address: "127.0.0.1"
+       key_buffer: "16M"
+
+    php5_fpm:
+      max_children: 5
+      start_servers: 2
+      min_spare_servers: 2
+      max_spare_servers: 4
+
+    memcached:
+      listen: "127.0.0.1"
+      port: 11211
+      user: nobody
+      memory: 64
+      max_connections: 1024
+
+    hppg:
+      database: "hppg"
+      user: "hppg"
+      password: "ewguygr837tuy34gebd"
+
+
+
+
+  tasks:
+     - include: playbooks/prerequisites/tasks/setup.yml
+     - include: playbooks/memcached/tasks/setup.yml
+     - include: playbooks/nginx/tasks/setup.yml
+     - include: playbooks/php-fpm/tasks/setup.yml
+     - include: playbooks/mysql/tasks/setup.yml
+     - include: playbooks/sphinxsearch/tasks/setup.yml
+     - include: playbooks/hppg/tasks/setup.yml
+
+
+
+#     - include: playbooks/hppg/tasks/cron.yml
+#     - include: playbooks/s.yml
+
+  handlers:
+     - include: playbooks/memcached/handlers/handler.yml
+     - include: playbooks/nginx/handlers/handler.yml
+     - include: playbooks/php-fpm/handlers/handler.yml
+     - include: playbooks/mysql/handlers/handler.yml
+     - include: playbooks/sphinxsearch/handlers/handler.yml

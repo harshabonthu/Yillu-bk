@@ -1,0 +1,12 @@
+---
+
+- name: install nginx 
+  action: apt name=nginx state=installed
+
+- name: start nginx
+  action: service name=nginx state=started
+
+- name: write nginx.conf
+  action: template src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
+  notify:
+    - restart nginx

@@ -1,0 +1,16 @@
+---
+
+- name: Create DB views for Sphinx
+  action: mysql_db login_user={{ hppg.user }} login_password={{ hppg.password }} db={{ hppg.database }} state=import target=/var/www/{{ ansible_hostname }}/doc/database_helpers/{{ item }}
+  with_items:
+  - lh_gallery_sphinx_search_view.sql
+  - sphinx_forum.sql
+
+- name: Create sphinx.conf
+  action: template src='sphinx.conf.j2' dest='/etc/sphinxsearch/sphinx.conf' mode=0644
+
+- name: Initial indexing
+  action: command indexer --all
+
+- name: Start sphinxsearch
+  action: service name=sphinxsearch state=started

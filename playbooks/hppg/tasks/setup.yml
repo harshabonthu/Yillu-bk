@@ -1,0 +1,5 @@
+---
+  - include: db.yml
+  - include: webroot.yml
+  - include: sphinx.yml
+  - include: cron.yml

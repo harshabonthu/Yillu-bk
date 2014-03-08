@@ -1,0 +1,11 @@
+--- 
+- name: update apt repo
+  action: apt update-cache=yes
+
+- name: install prerequisites
+  action: apt name={{ item }} state=installed
+  with_items:
+  - python-software-properties
+  - python-mysqldb
+  - mc
+  - htop
