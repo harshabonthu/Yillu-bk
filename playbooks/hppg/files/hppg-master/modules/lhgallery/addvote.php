@@ -2,8 +2,9 @@
 
 if (isset($_POST['photo']) && isset($_POST['score']) )
 {   
-    $rate = min($_POST['score'], 5);
-    $rate = max($rate, 0);
+    //$rate = min($_POST['score'], 5);
+    //$rate = max($rate, 0);
+    $rate = 1;
 
     $image = erLhcoreClassGallery::getSession()->load( 'erLhcoreClassModelGalleryImage', (int)$_POST['photo'] );  
 
